@@ -53,7 +53,9 @@ struct LinearBezierVector {
   std::vector<bezier_linear_variable_t> beziers_;
   std::size_t size() { return beziers_.size(); }
   bezier_linear_variable_t* at(std::size_t i) {
-    assert(i < size());
+    if (i > size() - 1) {
+      throw std::invalid_argument("i needs to be less than nbWayPoints");
+    }
     return new bezier_linear_variable_t(beziers_[i]);
   }
 };
